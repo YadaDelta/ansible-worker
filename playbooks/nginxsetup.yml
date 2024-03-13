@@ -1,0 +1,26 @@
+- hosts: hosts
+  become: yes
+
+  tasks:
+  - name: install nginx
+    ansible.builtin.apt:
+      name: nginx
+      state: present
+
+  - name: add site
+    ansible.builtin.template:
+      src: ../inventory/ansible.iphilka.ru.conf
+      dest: /etc/nginx/sites-available/ansible.iphilka.ru.conf
+    notify: restart nginx
+
+  - name: enable site
+    ansible.builtin.file:
+      src: /etc/nginx/sites-available/ansible.iphilka.ru.conf
+      dest: /etc/nginx/sites-enabled/ansible.iphilka.ru.conf
+      state: link
+  
+  handlers:
+    - name: restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted

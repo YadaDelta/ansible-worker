@@ -1,1 +1,5 @@
-ansible-playbook playbook.yml -i hosts.ini
+ansible-playbook playbooks/createuser.yml -i hosts.ini
+ansible-playbook playbooks/addkeys.yml -i hosts.ini
+ansible-playbook playbooks/gitclone.yml -i hosts.ini
+ansible-playbook playbooks/replaceindex.yml -i hosts.ini
+ansible-playbook playbooks/nginxsetup.yml -i hosts.ini

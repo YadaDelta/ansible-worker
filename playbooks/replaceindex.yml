@@ -1,0 +1,16 @@
+- hosts: hosts
+  become: yes
+
+  tasks:
+  - name: replace index stud
+    ansible.builtin.copy:
+      src: ../inventory/index.html
+      dest: /home/ansible-worker/www/stud-template/index.html
+      owner: ansible-worker
+      group: ansible-worker
+      mode: 0755
+
+  - name: replace index
+    ansible.builtin.template:
+      src: ../inventory/index.html
+      dest: /home/ansible-worker/www/index.html

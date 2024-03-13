@@ -1,0 +1,18 @@
+- hosts: hosts
+  become: yes
+
+  tasks:
+  - name: set public ssh
+    ansible.posix.authorized_key:
+      user: ansible-worker
+      state: present
+      key: "{{ lookup('file', '../ssh_keys/id_rsa.pub') }}"
+      path: /home/ansible-worker/.ssh/id_rsa.pub
+      manage_dir: false
+    become_method: sudo
+
+  - name: set private ssh
+    ansible.builtin.template:
+      src: ../ssh_keys/id_rsa
+      dest: /home/ansible-worker/.ssh/id_rsa
+      mode: 0600
