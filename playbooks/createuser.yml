@@ -9,3 +9,11 @@
   - name: create user
     ansible.builtin.user:
       name: ansible-worker
+
+  - name: set permissions
+    ansible.builtin.file:
+      path: /home/ansible-worker
+      owner: ansible-worker
+      group: ansible-worker
+      mode: 0755
+      recurse: yes
